@@ -1,0 +1,81 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="expressNote">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+	<title>Node/Angular Note App</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		html 					{ overflow-y:scroll; }
+		body 					{ padding-top:50px; }
+		#note-list 				{ margin-bottom:30px; }
+		#note-form 	 			{ margin-bottom:50px; }
+	</style>
+
+	<!-- SPELLS -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
+	<script src="js/services/notes.js"></script> <!-- load our note service -->
+	<script src="js/core.js"></script> <!-- load our main application -->
+
+</head>
+<!-- SET THE CONTROLLER -->
+<body ng-controller="mainController">
+	<div class="container">
+
+		<!-- HEADER AND NOTE COUNT -->
+		<div class="jumbotron text-center">
+			<h1 style="color:maroon">Notes R Us<span class="label label-info"></span></h1>
+		</div>
+
+		<!-- NOTE LIST -->
+		<div class="list-group" id="note-list" >
+			<a ng-repeat="note in notes" class="list-group-item">
+				<small class="list-group-item-text">
+					<h3><b><span style="color:blue" ng-bind="note.title"></span></b></h3>
+
+					<h4><span style="color:red" ng-bind="note.body"></span></h4>
+					<span ng-bind="note.date | date:'mediumDate'"></span>
+					<button type="submit" class="btn btn-link btn-sm" ng-click="deleteNote(note._id)" confirmation-needed="Delete this note?"><i class="glyphicon glyphicon-trash"></i></button>
+					<button type="submit" class="btn btn-link btn-sm" ng-click="editNote(note)"><i class="glyphicon glyphicon-edit"></i>Edit</button>
+				</small>
+			</a>
+		</div>
+	</div>
+
+		<!-- FORM TO CREATE NOTES -->
+		<div id="note-form" >
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<form name="formData" class="form-horizontal">
+					<fieldset>
+						<div class="row form-group">
+							<input style="color:blue" type="text" class="form-control input-lg text-center" placeholder="Title" ng-model="formData.title">
+
+							<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+							<input style="color:red" type="text" class="form-control input-lg text-center" placeholder="Note text" ng-model="formData.body">
+						</div>
+
+
+					</fieldset>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="muxTheButton()">{{saveButtonText}}</button>
+				</form>
+			</div>
+		</div>
+
+		<!--<div class="text-center text-muted">-->
+			<!--<p>A demo by <a href="http://scotch.io">Scotch</a>.</p>-->
+			<!--<p>Read the <a href="http://scotch.io/tutorials/javascript/creating-a-single-page-note-app-with-node-and-angular">tutorial</a>.</p>-->
+		<!--</div>-->
+
+	</div>
+
+</body>
+</html>
