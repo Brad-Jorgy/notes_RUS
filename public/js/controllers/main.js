@@ -19,6 +19,7 @@ angular.module('noteController', [])
 		// EDIT ====================================================================
 		// copy current data to form and update
 		$scope.editNote = function(dataToEdit) {
+			document.body.scrollTop = document.documentElement.scrollTop = 0;
 			$scope.formData = dataToEdit;
 			$scope.saveButtonText = "Update " + dataToEdit.title;
 			$scope.createOrUpdate = $scope.updateNote;
@@ -29,6 +30,7 @@ angular.module('noteController', [])
 		// when submitting the add form, send the text to the node API
 		$scope.updateNote = function() {
 
+		if($scope.noteObject.body !== undefined && $scope.noteObject.title !== undefined) {
 		// call the create function from our service (returns a promise object)
 				Notes.update($scope.noteObject)
 
@@ -37,10 +39,12 @@ angular.module('noteController', [])
 						$scope.loading = false;
 						$scope.formData = {}; // clear the form so our user is ready to enter another
 						$scope.notes = data; // assign our new list of notes
-						$scope.saveButtonText = "Add Note";
-						$scope.createOrUpdate = $scope.createNote;
-						$scope.$apply();
+						
 					});
+			}
+			
+			$scope.saveButtonText = "Add Note";
+			$scope.createOrUpdate = $scope.createNote;
 		};
 
 		$scope.muxTheButton = function() {
@@ -53,7 +57,7 @@ angular.module('noteController', [])
 
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
-			if ($scope.formData.body != undefined) {
+			if ($scope.formData.body != undefined && $scope.formData.title !==undefined) {
 				$scope.loading = true;
 
 				// call the create function from our service (returns a promise object)

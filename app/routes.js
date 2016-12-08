@@ -12,6 +12,7 @@ function getNotes(res) {
     });
 };
 
+
 module.exports = function (app) {
 
     // api ---------------------------------------------------------------------
@@ -23,12 +24,13 @@ module.exports = function (app) {
 
     // create note and send back all notes after creation
     app.post('/api/notes', function (req, res) {
-
+        if (req.body.title === undefined || req.body.body === undefined) {
+            res.send('invalid input');
+        }
         // create a note, information comes from AJAX request from Angular
         Note.create({
-            body: req.body.body,
-            key: req.body.key,
             title: req.body.title,
+            body: req.body.body,
             done: false
         }, function (err, note) {
             if (err)
@@ -59,9 +61,20 @@ module.exports = function (app) {
             if(err){
                 res.send(err);
             } else {
+             if (req.body.title === undefined || req.body.body === undefined) {
+                res.send('invalid input');
+            } else {
                 doc.title = req.body.title;
                 doc.body = req.body.body;
-                doc.save(getNotes(res));
+            
+               doc.save(function (err, updatedDoc){
+                    if(err){
+                        res.send(err);
+                     } else {
+                        getNotes(res);
+                    }
+                });
+            }
             }
         });
 
