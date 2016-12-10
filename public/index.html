@@ -28,12 +28,14 @@
 
 </head>
 <!-- SET THE CONTROLLER -->
-<body ng-controller="mainController" background ="color:black">
-	<div class="container">
 
+<body ng-controller="mainController">
+
+<img src='http://parkerlab.bio.uci.edu/pictures/photography%20pictures/2009_09_14_Monument%20Vly_SELECT/Mitten%20shadow_final%20pano.jpg' style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;'>
+	<div class="container">
 		<!-- HEADER AND NOTE COUNT -->
-		<div class="jumbotron text-center">
-			<h1 style="color:maroon">Notes R Us<span class="label label-info"></span></h1>
+		<div class="jumbotron text-center" sytle="margin:10px">
+			<h1 style="color:maroon" ><u>Notes R Us</u><span class="label label-info"></span></h1>
 		</div>
 		
 			<!-- FORM TO CREATE NOTES -->
@@ -52,6 +54,9 @@
 
 					</fieldset>
 					<button type="submit" class="btn btn-primary btn-lg" ng-click="muxTheButton()">{{saveButtonText}}</button>
+				<div ng-if="editMode">
+						<button type="submit" class="btn btn-primary btn-lg" ng-click="cancelUpdate()" >Cancel</button>
+				</div>
 				</form>
 			</div>
 		</div>

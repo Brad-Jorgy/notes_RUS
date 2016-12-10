@@ -5,6 +5,7 @@ angular.module('noteController', [])
 		$scope.formData = {};
 		$scope.loading = true;
 		$scope.saveButtonText = "Add Note";
+		$scope.isEdit = false;
 
 
 		// GET =====================================================================
@@ -20,10 +21,20 @@ angular.module('noteController', [])
 		// copy current data to form and update
 		$scope.editNote = function(dataToEdit) {
 			document.body.scrollTop = document.documentElement.scrollTop = 0;
-			$scope.formData = dataToEdit;
-			$scope.saveButtonText = "Update " + dataToEdit.title;
+			$scope.formData.body = dataToEdit.body;
+			$scope.formData.title = dataToEdit.title;
+			$scope.saveButtonText = "Update";
 			$scope.createOrUpdate = $scope.updateNote;
 			$scope.noteObject = dataToEdit;
+			$scope.editMode = true;
+		};
+
+		$scope.cancelUpdate = function() {
+			$scope.createOrUpdate = $scope.createNote;
+			$scope.editMode = false;
+			$scope.saveButtonText = "Add Note";
+			$scope.formData.body = "";
+			$scope.formData.title = "";
 		};
 
 		// UPDATE ==================================================================
