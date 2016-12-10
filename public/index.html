@@ -34,7 +34,7 @@
 <img src='http://parkerlab.bio.uci.edu/pictures/photography%20pictures/2009_09_14_Monument%20Vly_SELECT/Mitten%20shadow_final%20pano.jpg' style='position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;'>
 	<div class="container">
 		<!-- HEADER AND NOTE COUNT -->
-		<div class="jumbotron text-center" sytle="margin:10px">
+		<div class="jumbotron text-center" style="background-image:https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi93lFDJ---rpZw-QfKODf78_1wkvM_KFg8tNRRCF7v1xBYBwcvA;">
 			<h1 style="color:maroon" ><u>Notes R Us</u><span class="label label-info"></span></h1>
 		</div>
 		
@@ -53,9 +53,9 @@
 
 
 					</fieldset>
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="muxTheButton()">{{saveButtonText}}</button>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="muxTheButton(formData)">{{saveButtonText}}</button>
 				<div ng-if="editMode">
-						<button type="submit" class="btn btn-primary btn-lg" ng-click="cancelUpdate()" >Cancel</button>
+						<button type="submit" class="btn btn-primary btn-lg" ng-click="cancelUpdate(formData)" >Cancel</button>
 				</div>
 				</form>
 			</div>

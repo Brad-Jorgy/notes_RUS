@@ -33,16 +33,18 @@ angular.module('noteController', [])
 			$scope.createOrUpdate = $scope.createNote;
 			$scope.editMode = false;
 			$scope.saveButtonText = "Add Note";
-			$scope.formData.body = "";
-			$scope.formData.title = "";
+			$scope.formData = {};
 		};
 
 		// UPDATE ==================================================================
 		// when submitting the add form, send the text to the node API
-		$scope.updateNote = function() {
+		$scope.updateNote = function(dataIn) {
 
-		if($scope.noteObject.body !== undefined && $scope.noteObject.title !== undefined) {
+		if(dataIn.body !== undefined && dataIn.title !== undefined) {
 		// call the create function from our service (returns a promise object)
+			$scope.noteObject.body = dataIn.body;
+			$scope.noteObject.title = dataIn.title;
+
 				Notes.update($scope.noteObject)
 
 				// if successful creation, call our get function to get all the new notes
@@ -56,15 +58,16 @@ angular.module('noteController', [])
 			
 			$scope.saveButtonText = "Add Note";
 			$scope.createOrUpdate = $scope.createNote;
+			$scope.editMode = false;
 		};
 
-		$scope.muxTheButton = function() {
-			$scope.createOrUpdate();
+		$scope.muxTheButton = function(dataIn) {
+			$scope.createOrUpdate(dataIn);
 		};
 
 		// CREATE ==================================================================
 		// when submitting the add form, send the text to the node API
-		$scope.createNote = function() {
+		$scope.createNote = function(dataIn) {
 
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
@@ -80,6 +83,8 @@ angular.module('noteController', [])
 						$scope.formData = {}; // clear the form so our user is ready to enter another
 						$scope.notes = data; // assign our new list of notes
 					});
+				$scope.editMode = false;
+				$scope.formData = {};
 			}
 		};
 
